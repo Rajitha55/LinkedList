@@ -1,0 +1,90 @@
+//Linked list Operations
+
+#include <bits/stdc++.h>
+using namespace std;
+
+//Node structure
+struct Node
+{
+    int data;
+    Node* next;
+};
+
+//1.Insert Operations
+//1.1.Insert at Beginning
+void insertBegin(Node*& head, int val)
+{
+    Node* NewNode=new Node();
+    NewNode->data=val;
+    if(head==NULL)
+    {
+        NewNode->next=NULL;
+        head=NewNode;
+        return;
+    }
+    NewNode->next=head;
+    head=NewNode;
+}
+
+//1.2. Insert at the end
+void insertEnd(Node*& head,int val)
+{
+    Node* temp=head;
+    Node* NewNode=new Node();
+    NewNode->data=val;
+    NewNode->next=NULL;
+    
+    if(head==NULL)
+    {
+        head=NewNode;
+        return;
+    }
+    
+    while(temp->next!=NULL)
+       temp=temp->next;
+       
+    temp->next=NewNode;
+}
+
+//1.3. Insert at a particular position
+void insertPos(Node*& head,int val,int pos)
+{
+    if(pos==1)
+    {
+        insertBegin(head,val);
+        return;
+    }  
+    
+    Node* temp=head;
+    for(int i=1;i<pos-1 && temp!=NULL;i++)
+        temp=temp->next;
+    
+    if(temp==NULL)
+    {
+        cout<<"Invalid position" ;
+        return;
+    }      
+    
+    Node* NewNode=new Node();
+    NewNode->data=val;
+    
+    NewNode->next=temp->next;
+    temp->next=NewNode;
+}
+
+int main()
+{
+    Node *head=NULL;
+    insertBegin(head,10);
+    insertEnd(head,20);
+    insertBegin(head,5);
+    insertPos(head,15,3);
+    
+    Node *temp=head;
+    while(temp != NULL)
+    {
+       cout<<temp->data<<" ";
+       temp=temp->next;
+    }
+    return 0;
+}
